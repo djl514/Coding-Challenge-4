@@ -7,3 +7,9 @@ const inventory = [
     { name: 'Smartwatch', price: 250, quantity: 3, lowStockLevel: 1 }
 ];
 
+//2. Create a function to display product details
+function displayProductDetails(inventory){
+    return `Product Name: ${inventory.name}, Price: $${inventory.price}, Quantity: ${inventory.quantity} 
+    Status: ${inventory.quantity >= inventory.lowStockLevel ? 'In Stock' : 'Low Stock'}`;
+
+}
