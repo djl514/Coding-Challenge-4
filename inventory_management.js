@@ -1,9 +1,9 @@
 // 1. Create an inventory array of product objects (sampleData)
 const inventory = [
     { name: 'Curved Monitor', price: 900, quantity: 20, lowStockLevel: 2 },
-    { name: 'Tablet', price: 500, quantity: 1, lowStockLevel: 3 },
+    { name: 'Tablet', price: 500, quantity: 30, lowStockLevel: 3 },
     { name: 'Headset', price: 300, quantity: 15, lowStockLevel: 5 },
-    { name: 'Keyboard', price: 250, quantity: 2, lowStockLevel: 3 }, 
+    { name: 'Keyboard', price: 250, quantity: 7, lowStockLevel: 8 }, 
     { name: 'Desktop', price: 1200, quantity: 30, lowStockLevel: 3 }
 ];
 
@@ -26,16 +26,16 @@ displayProductDetails(inventory);
 function updateStock(inventory, unitsSold){
     let leftOver = inventory.quantity -= unitsSold;
     if (leftOver <= 0){
-        console.log(`${inventory.name}: Not In Stock`);
+        return `${inventory.name}: Not In Stock (${inventory.quantity})`;
     } else if (leftOver <= inventory.lowStockLevel){
-        console.log(`${inventory.name}: Low in Stock`);
+        return `${inventory.name}: Low in Stock (${inventory.quantity})`;
     } else {
-        console.log(`${inventory.name}: In Stock`);
+        return `${inventory.name}: In Stock (${inventory.quantity})`;
     }
 }
 
 //calls the function
-//updateStock(inventory[0], 20);
+console.log(updateStock(inventory[0], 0));
 //displayProductDetails(inventory); //the displayProductDetails function should be updated
 
 //4. Create a Function to Check Low Stock Products
@@ -65,6 +65,7 @@ console.log(calculateInventoryValue(inventory));
 function deleteTotalValue(inventory){
     inventory.forEach((product) => {
         delete product.totalValue;
+        return inventory;
     });
 }
 
@@ -72,4 +73,13 @@ deleteTotalValue(inventory);
 //console.log(inventory);
 
 //6. Create a Funciton to Process a Sale
+function processSale(product, unitSold){
+    var result = inventory.find(({ name }) => name === product);
+    if (result){
+        return updateStock(result, unitSold);
+    } else {
+        return `Product not in Inventory`;
+    }
+}
 
+console.log(processSale("Keyboard", 1));
